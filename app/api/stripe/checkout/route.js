@@ -1,5 +1,4 @@
 import { stripe } from '../../../../lib/stripe';
-import { supabase } from '../../../../lib/supabase';
 
 export async function POST(request) {
   try {
