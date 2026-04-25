@@ -1,0 +1,123 @@
+.main {
+  min-height: calc(100vh - 65px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+.container {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 16px;
+}
+
+.container h1 {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.sub {
+  font-size: 16px;
+  color: var(--warm-gray);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.pricingCard {
+  background: var(--warm-white);
+  border: 1.5px solid var(--clay);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.price {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.price span {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--warm-gray);
+}
+
+.features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.features li {
+  font-size: 15px;
+  color: var(--charcoal);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.features li:last-child { border-bottom: none; }
+
+.note {
+  font-size: 12px;
+  color: var(--warm-gray);
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  text-align: left;
+}
+
+.compareCol {
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.compareColPro {
+  border-color: var(--clay);
+  background: #fff9f6;
+}
+
+.compareHeader {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--clay);
+  margin-bottom: 12px;
+}
+
+.compareItem {
+  font-size: 13px;
+  color: var(--charcoal);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.compareItem:last-child { border-bottom: none; }
+.dim { color: var(--warm-gray); }

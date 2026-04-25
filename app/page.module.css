@@ -1,0 +1,282 @@
+.main {
+  overflow-x: hidden;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  overflow: hidden;
+}
+
+.heroOrb {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,113,74,0.08) 0%, transparent 70%);
+  top: -100px;
+  right: -200px;
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 680px;
+  animation: fadeSlide 0.6s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 24px;
+}
+
+.headline {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 7vw, 72px);
+  font-weight: 400;
+  line-height: 1.12;
+  color: var(--charcoal);
+  margin-bottom: 24px;
+}
+
+.headline em {
+  font-style: italic;
+  color: var(--clay);
+}
+
+.subhead {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--warm-gray);
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto 36px;
+}
+
+.heroCta {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.heroNote {
+  font-size: 13px;
+  color: var(--warm-gray);
+}
+
+/* Tools */
+.tools {
+  padding: 80px 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.toolsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.toolCard {
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: 24px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.toolCardSage {
+  background: rgba(107, 140, 114, 0.04);
+  border-color: rgba(107, 140, 114, 0.3);
+}
+
+.toolIcon {
+  font-size: 36px;
+}
+
+.toolCard h2 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.toolCard p {
+  font-size: 15px;
+  color: var(--warm-gray);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.toolFeatures {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.toolFeatures li {
+  font-size: 14px;
+  color: var(--charcoal);
+  padding-left: 20px;
+  position: relative;
+}
+
+.toolFeatures li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--clay);
+  font-weight: 600;
+}
+
+.toolCardSage .toolFeatures li::before {
+  color: var(--sage);
+}
+
+/* Pricing */
+.pricing {
+  padding: 80px 24px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  text-align: left;
+}
+
+.pricingCard {
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+}
+
+.pricingCardPro {
+  border-color: var(--clay);
+  background: #fff9f6;
+}
+
+.planBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--clay);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.planName {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-gray);
+  margin-bottom: 8px;
+}
+
+.planPrice {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 20px;
+}
+
+.planPrice span {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--warm-gray);
+}
+
+.planFeatures {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.planFeatures li {
+  font-size: 14px;
+  color: var(--charcoal);
+  padding-left: 20px;
+  position: relative;
+}
+
+.planFeatures li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--clay);
+  font-weight: 600;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footerLogo {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--clay);
+}
+
+.footer p {
+  font-size: 14px;
+  color: var(--warm-gray);
+}
+
+@media (max-width: 640px) {
+  .toolsGrid, .pricingGrid {
+    grid-template-columns: 1fr;
+  }
+  .toolCard {
+    padding: 24px;
+  }
+}

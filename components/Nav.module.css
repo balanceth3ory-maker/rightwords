@@ -1,0 +1,103 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(250, 246, 240, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.logoMark {
+  color: var(--clay);
+  font-size: 18px;
+}
+
+.logoText {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--charcoal);
+  letter-spacing: -0.01em;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--warm-gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link:hover, .link.active {
+  color: var(--charcoal);
+}
+
+.upgradeBadge {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clay);
+  background: rgba(196, 113, 74, 0.1);
+  padding: 5px 12px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.upgradeBadge:hover {
+  background: rgba(196, 113, 74, 0.2);
+}
+
+.proBadge {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sage);
+  background: rgba(107, 140, 114, 0.1);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+.signOut {
+  font-size: 14px;
+  color: var(--warm-gray);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-family: var(--font-sans);
+}
+
+.signOut:hover {
+  color: var(--charcoal);
+}
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 14px 20px;
+  }
+  .links {
+    gap: 14px;
+  }
+  .link {
+    display: none;
+  }
+  .link:last-child {
+    display: flex;
+  }
+}
