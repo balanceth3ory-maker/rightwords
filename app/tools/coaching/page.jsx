@@ -253,7 +253,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
                   <div className={styles.rulesGrid}>
                     {[
                       ['01', 'Be specific. Vague in, vague out. The more concrete your answers, the sharper the analysis.'],
-                      ['02', 'Be honest. Especially about your own role. The tool can\'t help you if you're performing.'],
+                      ['02', 'Be honest. Especially about your own role. The tool can\'t help you if you are performing.'],
                       ['03', 'Expect discomfort. The reframe at the end may not be what you wanted to hear.'],
                       ['04', 'No fix guaranteed. Some conflicts can be resolved. Some need to be managed. You\'ll find out which.'],
                     ].map(([num, text]) => (
