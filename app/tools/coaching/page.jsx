@@ -13,7 +13,7 @@ const CONTEXT_TYPES = [
 const PHASES = [
   { num: '00', name: 'Start', desc: 'Set the context' },
   { num: '01', name: 'The situation', desc: 'What happened' },
-  { num: '02', name: 'The stakes', desc: 'What it's doing to you' },
+  { num: '02', name: 'The stakes', desc: "What it's doing to you" },
   { num: '03', name: 'Their side', desc: 'Switch seats' },
   { num: '04', name: 'Your move', desc: 'What you can control' },
   { num: '05', name: 'The reframe', desc: 'The real question' },
