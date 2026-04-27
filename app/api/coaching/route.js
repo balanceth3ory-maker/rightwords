@@ -20,15 +20,21 @@ YOUR TONE AND STYLE:
 - Ask one sharp follow-up question at the end of each response — short, pointed, easy to answer.
 - Never use bullet points, headers, or lists. Plain prose only.`;
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+  const t0 = Date.now();
+
   try {
+    console.log(`[coaching] sending ${messages.length} messages to xAI...`);
     const response = await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.XAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'grok-3',
+        model: 'grok-4-fast-non-reasoning',
         max_tokens: 1000,
         messages: [
           { role: 'system', content: systemPrompt || DEFAULT_SYSTEM },
@@ -37,13 +43,19 @@ YOUR TONE AND STYLE:
       })
     });
 
+    clearTimeout(timeout);
+    console.log(`[coaching] xAI responded in ${Date.now() - t0}ms — HTTP ${response.status}`);
     const data = await response.json();
     if (!response.ok) return Response.json({ text: 'API error: ' + response.status }, { status: response.status });
 
     const text = data.choices?.[0]?.message?.content || 'No response';
+    console.log(`[coaching] done in ${Date.now() - t0}ms total`);
     return Response.json({ text });
 
   } catch (err) {
-    return Response.json({ text: 'Network error: ' + err.message }, { status: 500 });
+    clearTimeout(timeout);
+    console.log(`[coaching] failed after ${Date.now() - t0}ms — ${err.name}: ${err.message}`);
+    const msg = err.name === 'AbortError' ? 'Request timed out — please try again.' : 'Network error: ' + err.message;
+    return Response.json({ text: msg }, { status: 500 });
   }
 }

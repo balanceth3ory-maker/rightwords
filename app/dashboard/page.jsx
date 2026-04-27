@@ -108,10 +108,10 @@ export default function Dashboard() {
               <span className={styles.toolArrow}>→</span>
             </Link>
             <Link href="/tools/coaching" className={`${styles.toolCard} ${styles.toolCardSage}`}>
-              <span className={styles.toolIcon}>🧠</span>
+              <span className={styles.toolIcon}>⚖️</span>
               <div>
-                <h3>ADHD Coaching</h3>
-                <p>A focused coaching conversation that moves toward real behavior change.</p>
+                <h3>Wrong Question</h3>
+                <p>A conflict diagnostic that finds what your conflict is really about.</p>
               </div>
               <span className={styles.toolArrow}>→</span>
             </Link>
@@ -129,7 +129,7 @@ export default function Dashboard() {
                 {sessions.map(s => (
                   <div key={s.id} className={styles.sessionItem}>
                     <span className={styles.sessionTool}>
-                      {s.tool === 'statement' ? '🕊️ Statement Builder' : '🧠 ADHD Coaching'}
+                      {s.tool === 'statement' ? '🕊️ Statement Builder' : '⚖️ Wrong Question'}
                     </span>
                     <p className={styles.sessionSnippet}>{s.summary || 'Session completed'}</p>
                     <span className={styles.sessionDate}>

@@ -99,13 +99,15 @@ Respond ONLY with a valid JSON object, no markdown:
       setResult(data);
 
       // Log session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        await supabase.from('sessions').insert({
-          user_id: session.user.id,
-          tool: 'statement',
-          summary: data.primary?.slice(0, 120) || 'Statement generated'
-        });
+      if (supabase) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          await supabase.from('sessions').insert({
+            user_id: session.user.id,
+            tool: 'statement',
+            summary: data.primary?.slice(0, 120) || 'Statement generated'
+          });
+        }
       }
     } catch (err) {
       setResult({

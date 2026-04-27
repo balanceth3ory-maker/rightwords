@@ -12,6 +12,7 @@ export default function Nav() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!supabase) return;
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) checkPro(session.user.id);
@@ -56,7 +57,7 @@ export default function Nav() {
               Statement Builder
             </Link>
             <Link href="/tools/coaching" className={`${styles.link} ${pathname.includes('coaching') ? styles.active : ''}`}>
-              ADHD Coaching
+              Wrong Question
             </Link>
             {!isPro && (
               <Link href="/upgrade" className={styles.upgradeBadge}>

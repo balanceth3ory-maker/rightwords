@@ -9,7 +9,7 @@ export async function POST(request) {
         'Authorization': `Bearer ${process.env.XAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'grok-3',
+        model: 'grok-4-fast-non-reasoning',
         max_tokens: 1000,
         messages: [{ role: 'user', content: prompt }]
       })

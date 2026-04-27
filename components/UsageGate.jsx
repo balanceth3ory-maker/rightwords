@@ -15,6 +15,7 @@ export default function UsageGate({ children, toolName }) {
   }, []);
 
   async function checkAccess() {
+    if (!supabase) { setStatus('allowed'); return; }
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) { setStatus('unauthenticated'); return; }
 

@@ -49,19 +49,20 @@ export default function Home() {
             </div>
 
             <div className={`${styles.toolCard} ${styles.toolCardSage}`}>
-              <div className={styles.toolIcon}>🧠</div>
-              <h2>ADHD Coaching</h2>
+              <div className={styles.toolIcon}>⚖️</div>
+              <h2>Wrong Question</h2>
               <p>
-                A focused coaching conversation for people who know they have
-                ADHD but haven't found what actually works for them yet.
+                A conflict diagnostic built by a PhD organizational behaviorist.
+                Find out what your conflict is really about — and what question
+                you should actually be asking.
               </p>
               <ul className={styles.toolFeatures}>
-                <li>5–8 turn focused conversations</li>
-                <li>Moves toward concrete behavior change</li>
-                <li>Understands the emotional dimension of ADHD</li>
-                <li>No fluff, no coping lists</li>
+                <li>Four-phase structured diagnostic</li>
+                <li>Identifies the real layer driving the conflict</li>
+                <li>Forces perspective-taking</li>
+                <li>Ends with a sharp, plain-language reframe</li>
               </ul>
-              <Link href="/tools/coaching" className="btn btn-sage">Try ADHD Coaching</Link>
+              <Link href="/tools/coaching" className="btn btn-sage">Try Wrong Question</Link>
             </div>
           </div>
         </section>

@@ -128,7 +128,7 @@ export default function CoachingTool() {
       const updatedHistory = [...newHistory, { role: 'assistant', content: text }];
       setConversationHistory(updatedHistory);
       setAiResponses(prev => ({ ...prev, [phaseNum]: text }));
-      setPhase(phaseNum + 1);
+      if (phaseNum < 4) setPhase(phaseNum + 1);
     } catch (err) {
       setError('Something went wrong. Please try again.');
     }
@@ -166,7 +166,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
   "stopDoing": "one thing to stop wasting energy on (1 sentence)"
 }`;
 
-    const newHistory = [...conversationHistory, { role: 'user', content: summaryPrompt }];
+    const newHistory = [{ role: 'user', content: summaryPrompt }];
 
     try {
       const res = await fetch('/api/coaching', {
@@ -183,13 +183,15 @@ Respond ONLY with valid JSON (no markdown, no backticks):
       setVerdict(parsed);
 
       // Log session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        await supabase.from('sessions').insert({
-          user_id: session.user.id,
-          tool: 'coaching',
-          summary: parsed.title || 'Conflict coaching session'
-        });
+      if (supabase) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          await supabase.from('sessions').insert({
+            user_id: session.user.id,
+            tool: 'coaching',
+            summary: parsed.title || 'Conflict coaching session'
+          });
+        }
       }
     } catch (err) {
       setVerdict({
