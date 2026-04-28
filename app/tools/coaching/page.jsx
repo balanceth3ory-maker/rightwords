@@ -77,6 +77,8 @@ export default function CoachingTool() {
   const [verdict, setVerdict] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [emailStatus, setEmailStatus] = useState(''); // '' | 'sending' | 'sent' | 'error'
 
   function updateAnswer(key, value) {
     setAnswers(prev => ({ ...prev, [key]: value }));
@@ -201,6 +203,22 @@ Respond ONLY with valid JSON (no markdown, no backticks):
       });
     }
     setLoading(false);
+  }
+
+  async function emailVerdict() {
+    setEmailStatus('sending');
+    let to = emailInput.trim();
+    if (!to && supabase) {
+      const { data: { session } } = await supabase.auth.getSession();
+      to = session?.user?.email || '';
+    }
+    if (!to) { setEmailStatus('error'); return; }
+    const res = await fetch('/api/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to, type: 'verdict', data: verdict })
+    });
+    setEmailStatus(res.ok ? 'sent' : 'error');
   }
 
   function reset() {
@@ -490,6 +508,30 @@ Respond ONLY with valid JSON (no markdown, no backticks):
                             <div className={styles.vmValue}>{verdict.stopDoing}</div>
                           </div>
                         </div>
+                      </div>
+
+                      <div className={styles.emailRow}>
+                        {emailStatus === 'sent' ? (
+                          <div className={styles.emailSent}>✓ Sent to your inbox</div>
+                        ) : (
+                          <>
+                            <input
+                              type="email"
+                              placeholder="Email this to me…"
+                              value={emailInput}
+                              onChange={e => setEmailInput(e.target.value)}
+                              className={styles.emailInput}
+                            />
+                            <button
+                              onClick={emailVerdict}
+                              disabled={emailStatus === 'sending'}
+                              className={styles.btnPrimary}
+                            >
+                              {emailStatus === 'sending' ? 'Sending…' : 'Send'}
+                            </button>
+                          </>
+                        )}
+                        {emailStatus === 'error' && <div className={styles.errorMsg}>Couldn't send — check the address and try again.</div>}
                       </div>
 
                       <div className={styles.btnRow}>

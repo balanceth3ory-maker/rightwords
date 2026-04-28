@@ -50,6 +50,8 @@ export default function StatementTool() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [emailInput, setEmailInput] = useState('');
+  const [emailStatus, setEmailStatus] = useState('');
 
   const totalSteps = 5;
   const progress = (step / totalSteps) * 100;
@@ -139,10 +141,27 @@ Respond ONLY with a valid JSON object, no markdown:
     setTimeout(() => setCopied(false), 2000);
   }
 
+  async function emailStatement() {
+    setEmailStatus('sending');
+    let to = emailInput.trim();
+    if (!to && supabase) {
+      const { data: { session } } = await supabase.auth.getSession();
+      to = session?.user?.email || '';
+    }
+    if (!to) { setEmailStatus('error'); return; }
+    const res = await fetch('/api/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to, type: 'statement', data: result })
+    });
+    setEmailStatus(res.ok ? 'sent' : 'error');
+  }
+
   function reset() {
     setStep(1); setSituation(''); setBehavior('');
     setSelectedEmotions([]); setCustomEmotion('');
     setImpact(''); setRequest(''); setResult(null);
+    setEmailInput(''); setEmailStatus('');
   }
 
   return (
@@ -286,6 +305,26 @@ Respond ONLY with a valid JSON object, no markdown:
                       </button>
                       <button onClick={rephrase} className="btn btn-ghost" style={{ fontSize: '14px' }}>↻ Rephrase</button>
                       <button onClick={reset} className="btn btn-ghost" style={{ fontSize: '14px' }}>Start over</button>
+                    </div>
+
+                    <div className={styles.emailRow}>
+                      {emailStatus === 'sent' ? (
+                        <div className={styles.emailSent}>✓ Sent to your inbox</div>
+                      ) : (
+                        <>
+                          <input
+                            type="email"
+                            placeholder="Email this to me…"
+                            value={emailInput}
+                            onChange={e => setEmailInput(e.target.value)}
+                            className={styles.emailInput}
+                          />
+                          <button onClick={emailStatement} disabled={emailStatus === 'sending'} className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '14px' }}>
+                            {emailStatus === 'sending' ? 'Sending…' : 'Send'}
+                          </button>
+                        </>
+                      )}
+                      {emailStatus === 'error' && <div style={{ fontSize: '13px', color: '#c0392b', width: '100%' }}>Couldn't send — check the address and try again.</div>}
                     </div>
 
                     {result.alternatives?.length > 0 && (
