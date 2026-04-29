@@ -37,10 +37,14 @@ export default function Login() {
     }
 
     if (mode === 'signup') {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabase.auth.signUp({ email, password });
       if (error) { setError(error.message); setLoading(false); return; }
-      setSuccess('Check your email for a confirmation link, then come back and sign in.');
-      setLoading(false);
+      if (data.session) {
+        router.push('/dashboard');
+      } else {
+        setSuccess('Check your email for a confirmation link, then come back and sign in.');
+        setLoading(false);
+      }
       return;
     }
 
