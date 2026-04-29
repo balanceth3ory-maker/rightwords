@@ -36,7 +36,7 @@ function verdictHtml(verdict) {
       </table>
 
       <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #e0d8cf; font-size: 12px; color: #7a6f68; font-family: system-ui, sans-serif;">
-        Sent from <a href="https://rightwords.vercel.app" style="color: #c4714a;">RightWords</a>
+        Sent from <a href="https://rightwords.app" style="color: #c4714a;">RightWords</a>
       </div>
     </div>
   `;
@@ -68,7 +68,7 @@ function statementHtml(result) {
       ` : ''}
 
       <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #e0d8cf; font-size: 12px; color: #7a6f68; font-family: system-ui, sans-serif;">
-        Sent from <a href="https://rightwords.vercel.app" style="color: #c4714a;">RightWords</a>
+        Sent from <a href="https://rightwords.app" style="color: #c4714a;">RightWords</a>
       </div>
     </div>
   `;
