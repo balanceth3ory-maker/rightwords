@@ -45,8 +45,8 @@ export default function Upgrade() {
           <div className={styles.pricingCard}>
             <div className={styles.price}>$7.99<span>/month</span></div>
             <ul className={styles.features}>
-              <li>✓ Unlimited Statement Builder sessions</li>
-              <li>✓ Unlimited Conflict Coaching sessions</li>
+              <li>✓ Unlimited Right Statement sessions</li>
+              <li>✓ Unlimited Right Question sessions</li>
               <li>✓ Full session history saved</li>
               <li>✓ Cancel anytime</li>
             </ul>

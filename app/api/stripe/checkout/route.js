@@ -1,6 +1,8 @@
 import { stripe } from '../../../../lib/stripe';
 
 export async function POST(request) {
+  if (!stripe) return Response.json({ error: 'Stripe not configured' }, { status: 500 });
+
   try {
     const { userId, email } = await request.json();
 
