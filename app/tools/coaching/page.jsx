@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Nav from '../../../components/Nav';
 import UsageGate from '../../../components/UsageGate';
 import { supabase } from '../../../lib/supabase';
@@ -21,6 +23,7 @@ const PHASES = [
 
 
 export default function CoachingTool() {
+  const router = useRouter();
   const [phase, setPhase] = useState(0);
   const [contextType, setContextType] = useState('');
   const [answers, setAnswers] = useState({});
@@ -145,6 +148,17 @@ export default function CoachingTool() {
       body: JSON.stringify({ to, type: 'verdict', data: verdict })
     });
     setEmailStatus(res.ok ? 'sent' : 'error');
+  }
+
+  function continueToRightIdea() {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('rw_prefill', JSON.stringify({
+        context: answers['1a'] || '',
+        contextType,
+        fromTool: 'Right Question',
+      }));
+    }
+    router.push('/tools/mapping');
   }
 
   function reset() {
@@ -462,6 +476,16 @@ export default function CoachingTool() {
 
                       <div className={styles.btnRow}>
                         <button onClick={reset} className={styles.btnGhost}>Start a new conflict</button>
+                      </div>
+
+                      <div className={styles.nextTools}>
+                        <div className={styles.nextToolsLabel}>Take it further</div>
+                        <button onClick={continueToRightIdea} className={styles.nextToolPrimary}>
+                          Map everyone involved with Right Idea →
+                        </button>
+                        <Link href="/tools/statement" className={styles.nextToolSecondary}>
+                          Draft your message with Right Statement →
+                        </Link>
                       </div>
                     </>
                   )}

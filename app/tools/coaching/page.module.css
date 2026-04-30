@@ -451,6 +451,52 @@
   font-weight: 500;
 }
 
+/* Next tools (cross-tool chaining) */
+.nextTools {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nextToolsLabel {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-gray);
+  font-family: monospace;
+  margin-bottom: 2px;
+}
+
+.nextToolPrimary {
+  background: #2d4060;
+  color: #f5f2ed;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: left;
+}
+
+.nextToolPrimary:hover { background: #3a5080; }
+
+.nextToolSecondary {
+  display: block;
+  color: var(--warm-gray);
+  font-size: 0.85rem;
+  text-decoration: none;
+  padding: 8px 4px;
+  transition: color 0.15s;
+}
+
+.nextToolSecondary:hover { color: var(--charcoal); }
+
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; height: auto; }

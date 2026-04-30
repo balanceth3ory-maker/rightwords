@@ -81,6 +81,59 @@
   color: var(--warm-gray);
 }
 
+/* Recommended flow */
+.flow {
+  padding: 0 24px 48px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.flowInner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 20px 32px;
+}
+
+.flowLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--warm-gray);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.flowPath {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.flowStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: background 0.15s;
+  flex: 1;
+  text-align: center;
+}
+
+.flowStep:hover { background: rgba(26,24,20,0.04); }
+.flowStepIcon { font-size: 20px; }
+.flowStepName { font-size: 13px; font-weight: 600; color: var(--charcoal); }
+.flowStepDesc { font-size: 11px; color: var(--warm-gray); }
+.flowArrow { color: var(--warm-gray); font-size: 16px; }
+
 /* Tools */
 .tools {
   padding: 80px 24px;
@@ -294,5 +347,16 @@
   }
   .toolCard {
     padding: 24px;
+  }
+  .flowInner {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+  .flowPath {
+    width: 100%;
+  }
+  .flowStep {
+    padding: 8px 10px;
   }
 }

@@ -103,7 +103,7 @@ export default function Dashboard() {
               <span className={styles.toolIcon}>🕊️</span>
               <div>
                 <h3>Right Statement</h3>
-                <p>Craft an I-statement, XYZ statement, or NVC message with AI guidance.</p>
+                <p>Turn your raw feelings into a respectful message you can actually deliver.</p>
               </div>
               <span className={styles.toolArrow}>→</span>
             </Link>
@@ -111,7 +111,7 @@ export default function Dashboard() {
               <span className={styles.toolIcon}>⚖️</span>
               <div>
                 <h3>Right Question</h3>
-                <p>A conflict diagnostic that finds what your conflict is really about.</p>
+                <p>Stop fighting the wrong battle. Discover the real question driving the conflict.</p>
               </div>
               <span className={styles.toolArrow}>→</span>
             </Link>
@@ -119,7 +119,7 @@ export default function Dashboard() {
               <span className={styles.toolIcon}>🗺️</span>
               <div>
                 <h3>Right Idea</h3>
-                <p>Work through the emotion, understand everyone involved, and build a plan.</p>
+                <p>Map the full picture and build a practical, neutral action plan.</p>
               </div>
               <span className={styles.toolArrow}>→</span>
             </Link>

@@ -298,6 +298,53 @@
   30% { opacity: 1; transform: scale(1); }
 }
 
+/* Prefill banner */
+.prefillBanner {
+  background: rgba(74,106,156,0.08);
+  border: 0.5px solid rgba(74,106,156,0.3);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 0.78rem;
+  color: #2d4060;
+  margin-bottom: 1.25rem;
+}
+
+/* Next tools (cross-tool chaining) */
+.nextTools {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 0.5px solid rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nextToolsLabel {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(200,215,235,0.5);
+  font-family: monospace;
+  margin-bottom: 2px;
+}
+
+.nextToolPrimary {
+  display: block;
+  background: rgba(255,255,255,0.09);
+  color: #f5f2ed;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.nextToolPrimary:hover { background: rgba(255,255,255,0.14); }
+
 /* Reframe cards (phase 3 selection) */
 .reframeGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
 

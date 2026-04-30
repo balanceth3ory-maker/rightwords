@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Nav from '../../../components/Nav';
 import UsageGate from '../../../components/UsageGate';
 import { supabase } from '../../../lib/supabase';
@@ -37,6 +38,22 @@ export default function MappingTool() {
   const [error, setError] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [emailStatus, setEmailStatus] = useState('');
+  const [prefillSource, setPrefillSource] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const raw = sessionStorage.getItem('rw_prefill');
+      if (raw) {
+        try {
+          const prefill = JSON.parse(raw);
+          if (prefill.context) setContext(prefill.context);
+          if (prefill.contextType) setContextType(prefill.contextType);
+          if (prefill.fromTool) setPrefillSource(prefill.fromTool);
+          sessionStorage.removeItem('rw_prefill');
+        } catch {}
+      }
+    }
+  }, []);
 
   function addParty() {
     if (!partyDraft.name.trim() || !partyDraft.description.trim()) {
@@ -208,6 +225,11 @@ export default function MappingTool() {
               {/* Phase 1: The conflict */}
               {phase <= 1 && (
                 <div className={styles.phase}>
+                  {prefillSource && (
+                    <div className={styles.prefillBanner}>
+                      Context carried over from {prefillSource} — review and adjust if needed.
+                    </div>
+                  )}
                   <div className={styles.eyebrow}>Step 01 — The conflict</div>
                   <h1 className={styles.title}>What's the conflict?</h1>
 
@@ -466,6 +488,13 @@ export default function MappingTool() {
 
                       <div className={styles.btnRow}>
                         <button onClick={reset} className={styles.btnGhost}>Start a new map</button>
+                      </div>
+
+                      <div className={styles.nextTools}>
+                        <div className={styles.nextToolsLabel}>Take it further</div>
+                        <Link href="/tools/statement" className={styles.nextToolPrimary}>
+                          Draft your message with Right Statement →
+                        </Link>
                       </div>
                     </>
                   )}

@@ -30,23 +30,44 @@ export default function Home() {
           <div className={styles.heroOrb} aria-hidden />
         </section>
 
+        {/* Recommended Flow */}
+        <section className={styles.flow}>
+          <div className={styles.flowInner}>
+            <div className={styles.flowLabel}>Recommended path</div>
+            <div className={styles.flowPath}>
+              <Link href="/tools/coaching" className={styles.flowStep}>
+                <span className={styles.flowStepIcon}>⚖️</span>
+                <div className={styles.flowStepName}>Right Question</div>
+                <div className={styles.flowStepDesc}>Find the real problem</div>
+              </Link>
+              <span className={styles.flowArrow}>→</span>
+              <Link href="/tools/mapping" className={styles.flowStep}>
+                <span className={styles.flowStepIcon}>🗺️</span>
+                <div className={styles.flowStepName}>Right Idea</div>
+                <div className={styles.flowStepDesc}>Map everyone involved</div>
+              </Link>
+              <span className={styles.flowArrow}>→</span>
+              <Link href="/tools/statement" className={styles.flowStep}>
+                <span className={styles.flowStepIcon}>🕊️</span>
+                <div className={styles.flowStepName}>Right Statement</div>
+                <div className={styles.flowStepDesc}>Say what needs to be said</div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Tools */}
         <section className={styles.tools} id="tools">
           <div className={styles.toolsGrid}>
             <div className={styles.toolCard}>
               <div className={styles.toolIcon}>🕊️</div>
               <h2>Right Statement</h2>
-              <p>
-                Your conflict coaching guide for words. It doesn't give you ready-made answers —
-                it helps you think through your feelings and needs to craft a clear, non-blaming
-                message. Using I-statements, XYZ statements, or Nonviolent Communication, it
-                guides you step-by-step so you can refine your own perspective and say what matters.
-              </p>
+              <p>Turn your raw feelings into a respectful message you can actually deliver.</p>
               <ul className={styles.toolFeatures}>
                 <li>Three proven communication formats</li>
-                <li>Emotion picker + guided prompts</li>
-                <li>AI-crafted statement with alternatives</li>
-                <li>Editable, copyable result</li>
+                <li>Guided prompts for feelings and needs</li>
+                <li>AI-crafted statement, ready to copy</li>
+                <li>Editable result</li>
               </ul>
               <Link href="/tools/statement" className="btn btn-primary">Try Right Statement</Link>
             </div>
@@ -54,17 +75,12 @@ export default function Home() {
             <div className={`${styles.toolCard} ${styles.toolCardSage}`}>
               <div className={styles.toolIcon}>⚖️</div>
               <h2>Right Question</h2>
-              <p>
-                Your personal conflict coaching guide. Instead of giving you answers, it helps
-                you think through the issue, shift your perspective, and move past surface
-                arguments. Its simple four-phase process reveals the real question underneath
-                so you can approach the conflict with clarity.
-              </p>
+              <p>Stop fighting the wrong battle. Discover the real question driving the conflict.</p>
               <ul className={styles.toolFeatures}>
-                <li>Four-phase structured diagnostic</li>
-                <li>Identifies the real layer driving the conflict</li>
-                <li>Forces perspective-taking</li>
-                <li>Ends with a sharp, plain-language reframe</li>
+                <li>Four-phase conflict diagnostic</li>
+                <li>Finds the real layer driving the conflict</li>
+                <li>Forces honest perspective-taking</li>
+                <li>Plain-language reframe of the real question</li>
               </ul>
               <Link href="/tools/coaching" className="btn btn-sage">Try Right Question</Link>
             </div>
@@ -72,16 +88,12 @@ export default function Home() {
             <div className={`${styles.toolCard} ${styles.toolCardBlue}`}>
               <div className={styles.toolIcon}>🗺️</div>
               <h2>Right Idea</h2>
-              <p>
-                A structured conflict coaching guide — not therapy, not advocacy. Working with
-                just one person at a time, it helps you work through the emotion, understand
-                everyone involved, and build a clear plan for moving forward constructively.
-              </p>
+              <p>Map the full picture and build a practical, neutral action plan.</p>
               <ul className={styles.toolFeatures}>
-                <li>Guided three-step process</li>
-                <li>Surfaces what each person actually needs</li>
-                <li>Neutral — no sides, no judgment</li>
-                <li>Ends with a concrete action plan</li>
+                <li>Maps everyone involved and their core concerns</li>
+                <li>Identifies what each person is really protecting</li>
+                <li>Reframes what you want to say — four ways</li>
+                <li>Concrete, personalized action plan</li>
               </ul>
               <Link href="/tools/mapping" className="btn btn-blue">Try Right Idea</Link>
             </div>
