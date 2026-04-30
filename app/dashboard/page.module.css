@@ -124,6 +124,10 @@
   border-color: var(--sage-light);
 }
 
+.toolCardBlue:hover {
+  border-color: #7a9cbf;
+}
+
 .toolIcon { font-size: 28px; flex-shrink: 0; }
 
 .toolCard h3 {

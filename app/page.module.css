@@ -92,7 +92,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+  grid-template-areas:
+    "a b"
+    "c c";
 }
+
+.toolsGrid > :nth-child(1) { grid-area: a; }
+.toolsGrid > :nth-child(2) { grid-area: b; }
+.toolsGrid > :nth-child(3) { grid-area: c; }
 
 .toolCard {
   background: var(--warm-white);
@@ -151,6 +158,15 @@
 
 .toolCardSage .toolFeatures li::before {
   color: var(--sage);
+}
+
+.toolCardBlue {
+  background: rgba(74, 106, 156, 0.04);
+  border-color: rgba(74, 106, 156, 0.3);
+}
+
+.toolCardBlue .toolFeatures li::before {
+  color: #4a6a9c;
 }
 
 /* Pricing */

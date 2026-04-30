@@ -115,6 +115,14 @@ export default function Dashboard() {
               </div>
               <span className={styles.toolArrow}>→</span>
             </Link>
+            <Link href="/tools/mapping" className={`${styles.toolCard} ${styles.toolCardBlue}`}>
+              <span className={styles.toolIcon}>🗺️</span>
+              <div>
+                <h3>Right Idea</h3>
+                <p>Map the parties, relationships, and leverage points in a conflict.</p>
+              </div>
+              <span className={styles.toolArrow}>→</span>
+            </Link>
           </div>
 
           {/* Session history */}
@@ -129,7 +137,7 @@ export default function Dashboard() {
                 {sessions.map(s => (
                   <div key={s.id} className={styles.sessionItem}>
                     <span className={styles.sessionTool}>
-                      {s.tool === 'statement' ? '🕊️ Right Statement' : '⚖️ Right Question'}
+                      {s.tool === 'statement' ? '🕊️ Right Statement' : s.tool === 'mapping' ? '🗺️ Right Idea' : '⚖️ Right Question'}
                     </span>
                     <p className={styles.sessionSnippet}>{s.summary || 'Session completed'}</p>
                     <span className={styles.sessionDate}>

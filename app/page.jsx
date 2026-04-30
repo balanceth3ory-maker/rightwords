@@ -68,6 +68,23 @@ export default function Home() {
               </ul>
               <Link href="/tools/coaching" className="btn btn-sage">Try Right Question</Link>
             </div>
+
+            <div className={`${styles.toolCard} ${styles.toolCardBlue}`}>
+              <div className={styles.toolIcon}>🗺️</div>
+              <h2>Right Idea</h2>
+              <p>
+                A conflict mapping tool built on social network analysis. Map the parties, their
+                interests, and the relationships between them — then let AI reveal the patterns,
+                power dynamics, and leverage points you can't see from inside the conflict.
+              </p>
+              <ul className={styles.toolFeatures}>
+                <li>Map up to five parties and their interests</li>
+                <li>Identifies alliances, tensions, and power dynamics</li>
+                <li>Reveals the most important relationship to shift</li>
+                <li>Ends with a structured conflict map and first step</li>
+              </ul>
+              <Link href="/tools/mapping" className="btn btn-blue">Try Right Idea</Link>
+            </div>
           </div>
         </section>
 
