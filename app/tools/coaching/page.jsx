@@ -19,54 +19,6 @@ const PHASES = [
   { num: '05', name: 'The reframe', desc: 'The real question' },
 ];
 
-const PHASE_INSTRUCTIONS = {
-  1: `The user has described their situation and what outcome they want. Your job:
-1. In one short paragraph, name what you notice about how they've framed the problem. What does their language tell you about how they see it? Keep it simple and direct.
-2. In a second short paragraph, note whether their desired outcome is about the surface issue, the relationship, their sense of self, or who has control. Don't name these categories — just describe what you observe naturally.
-3. End with one simple question: something like "When did this start feeling like more than just a disagreement about X?"
-Keep the whole response to 4-6 sentences total.`,
-
-  2: `The user has answered questions about how the conflict has affected the relationship and what it says about them. Your job:
-1. In one short paragraph, tell them directly which seems more true: that this conflict is mainly hurting the relationship, or mainly threatening something about how they see themselves. Be specific about what you see.
-2. In a second short paragraph, note if these two things are connected — often the relationship feels damaged because of what the other person's behavior seems to say about us.
-3. End with one pointed question about what would have to happen for them to feel okay — not just for the conflict to end, but for them to feel respected or valued again.
-Keep it to 5-7 sentences total.`,
-
-  3: `The user has tried to take the other person's perspective and identified what that person might be protecting. Your job:
-1. In one paragraph, be honest: did they really switch sides, or are they still centering themselves? Tell them plainly.
-2. In a second paragraph, compare what the user wants versus what the other person seems to want. Are they actually fighting about the same thing, or about two completely different things?
-3. End with: "Given what they seem to need — and what you seem to need — where do those things actually conflict, and where might they not?"
-Keep it to 5-7 sentences total.`,
-
-  4: `The user has answered whether decision-making process is part of the conflict, and what they could change themselves. Your job:
-1. In one paragraph, identify whether the process/fairness issue is real or secondary. If it IS the real issue, name that directly.
-2. In a second paragraph, reflect their own-actions answer back to them honestly. Is what they named actually within their control? Are they avoiding something harder?
-3. End with one direct question that sets up the reframe: something like "If you couldn't change anything about the other person or the outcome — only your own choices — what would you do?"
-Keep it to 5-7 sentences total.`
-};
-
-function getSystemPrompt(contextType) {
-  return `You are the analytical engine behind "Right Question," a conflict coaching guide built by a PhD organizational behaviorist and trained mediator. Your job is to help people think through the issue, shift their perspective, and move past surface arguments to find the real question underneath.
-
-CONTEXT: ${contextType}
-
-YOUR ANALYTICAL FRAMEWORK (use this privately — never name it):
-Every conflict involves multiple layers of motivation. As you analyze responses, identify which layer is dominant:
-- The surface issue: what the conflict appears to be about on the surface
-- The relationship layer: what the conflict is doing to trust, respect, closeness
-- The identity layer: what the conflict is saying about who they are — competence, worth, or values being threatened
-- The process layer: whether the real issue is about fairness, voice, or who has the right to make decisions
-
-The surface issue is rarely the real driver.
-
-YOUR TONE AND STYLE:
-- Short. Two paragraphs maximum per response. Never more.
-- Direct and plain — 9th grade reading level. No academic language.
-- Name what you see without cushioning it. Be honest, not harsh.
-- Never use therapy language. You're an analyst, not a counselor.
-- Ask one sharp follow-up question at the end of each response.
-- Never use bullet points, headers, or lists. Plain prose only.`;
-}
 
 export default function CoachingTool() {
   const [phase, setPhase] = useState(0);
@@ -111,23 +63,25 @@ export default function CoachingTool() {
     }
 
     setLoading(true);
-    const newHistory = [...conversationHistory, {
-      role: 'user',
-      content: `${PHASE_INSTRUCTIONS[phaseNum]}\n\nUser's answers: ${userContent}`
-    }];
 
     try {
       const res = await fetch('/api/coaching', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: newHistory,
-          systemPrompt: getSystemPrompt(contextType)
+          phase: phaseNum,
+          contextType,
+          userContent,
+          history: conversationHistory
         })
       });
       const data = await res.json();
       const text = data.text;
-      const updatedHistory = [...newHistory, { role: 'assistant', content: text }];
+      const updatedHistory = [
+        ...conversationHistory,
+        { role: 'user', content: userContent },
+        { role: 'assistant', content: text }
+      ];
       setConversationHistory(updatedHistory);
       setAiResponses(prev => ({ ...prev, [phaseNum]: text }));
       if (phaseNum < 4) setPhase(phaseNum + 1);
@@ -141,42 +95,14 @@ export default function CoachingTool() {
     setLoading(true);
     setPhase(5);
 
-    const summaryPrompt = `You've now seen all four phases of this person's conflict. Synthesize everything into a final reframe.
-
-Context: ${contextType}
-What they said the conflict is about: ${answers['1a']}
-What outcome they want: ${answers['1b']}
-How the relationship has been affected: ${answers['2a']}
-What it says about them: ${answers['2b']}
-Their perspective-taking attempt: ${answers['3a']}
-What they think the other person is protecting: ${answers['3b']}
-Whether process/decision-making is the real issue: ${answers['4a']}
-What they can personally change: ${answers['4b']}
-
-SYNTHESIS TASK:
-Identify which layer is actually driving this conflict — surface disagreement, relationship issue, identity issue, or process issue. Don't name the layer academically — describe it plainly.
-
-Give them a sharp, plain-language reframe: what is this really about, and what is the right question to be asking?
-
-Respond ONLY with valid JSON (no markdown, no backticks):
-{
-  "title": "one sharp sentence (10-15 words) naming what this is really about",
-  "body": "exactly 2 short paragraphs. First: what layer is driving this and why. Second: what to do with that insight. Plain language, 9th grade reading level.",
-  "realQuestion": "The real question is... (1 plain sentence)",
-  "solvable": "one of: Yes — there are clear steps | Partly — some things can change, some can't | Not directly — this needs to be managed, not fixed",
-  "nextStep": "one concrete action they can take this week (1 sentence)",
-  "stopDoing": "one thing to stop wasting energy on (1 sentence)"
-}`;
-
-    const newHistory = [{ role: 'user', content: summaryPrompt }];
-
     try {
       const res = await fetch('/api/coaching', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: newHistory,
-          systemPrompt: getSystemPrompt(contextType)
+          phase: 'verdict',
+          contextType,
+          answers
         })
       });
       const data = await res.json();
@@ -235,7 +161,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
             {/* Sidebar */}
             <aside className={styles.sidebar}>
               <div className={styles.logoWrap}>
-                <div className={styles.logoTitle}>Wrong<br /><em>Question</em></div>
+                <div className={styles.logoTitle}>Right<br /><em>Question</em></div>
                 <div className={styles.logoTag}>Conflict diagnostic</div>
               </div>
               <nav className={styles.phaseNav}>

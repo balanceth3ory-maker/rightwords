@@ -1,5 +1,15 @@
 export async function POST(request) {
-  const { prompt } = await request.json();
+  const { formatTitle, formula, situation, behavior, feelings, impact, request: userRequest } = await request.json();
+
+  const template = (process.env.STATEMENT_SYSTEM || '').replace(/\\n/g, '\n');
+  const prompt = template
+    .replace('{formatTitle}', formatTitle || '')
+    .replace('{formula}', formula || '')
+    .replace('{situation}', situation || '')
+    .replace('{behavior}', behavior || '')
+    .replace('{feelings}', feelings || '')
+    .replace('{impact}', impact || '')
+    .replace('{requestLine}', userRequest ? `- Request: ${userRequest}` : '');
 
   try {
     const response = await fetch('https://api.x.ai/v1/chat/completions', {
@@ -22,8 +32,7 @@ export async function POST(request) {
     const clean = text.replace(/```json|```/g, '').trim();
 
     try {
-      const parsed = JSON.parse(clean);
-      return Response.json(parsed);
+      return Response.json(JSON.parse(clean));
     } catch {
       return Response.json({ primary: text, alternatives: [], tip: '' });
     }

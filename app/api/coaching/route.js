@@ -1,31 +1,39 @@
 export async function POST(request) {
-  const { messages, systemPrompt } = await request.json();
+  const { phase, contextType, userContent, history, answers } = await request.json();
 
-  const DEFAULT_SYSTEM = `You are the analytical engine behind "Wrong Question," a conflict diagnostic tool built by a PhD organizational behaviorist and trained mediator. Your job is to help people see what's actually driving their conflict — and what question they should really be asking.
+  const systemPrompt = (process.env.COACHING_SYSTEM || '')
+    .replace(/\\n/g, '\n')
+    .replace('{contextType}', contextType || '');
 
-YOUR ANALYTICAL FRAMEWORK (use this privately — never name it):
-Every conflict involves multiple layers of motivation. As you analyze responses, identify which layer is dominant for this person:
-- The surface issue: what the conflict appears to be about on the surface (the stated disagreement)
-- The relationship layer: what the conflict is doing to how they see their connection with the other person — trust, respect, closeness
-- The identity layer: what the conflict is saying about who they are — their competence, worth, or values being threatened
-- The process layer: whether the real issue is about fairness, voice, or who has the right to make decisions
+  let messages;
 
-As the conversation progresses, track which layer seems to be doing the most work. The surface issue is rarely the real driver.
-
-YOUR TONE AND STYLE:
-- Short. Two paragraphs maximum per response. Never more.
-- Direct and plain — write at a 9th grade reading level. No academic language.
-- Name what you see without cushioning it. Be honest, not harsh.
-- Never use therapy language ("I hear that you're feeling..."). You're an analyst, not a counselor.
-- Ask one sharp follow-up question at the end of each response — short, pointed, easy to answer.
-- Never use bullet points, headers, or lists. Plain prose only.`;
+  if (phase === 'verdict') {
+    const template = (process.env.COACHING_VERDICT || '').replace(/\\n/g, '\n');
+    const verdictPrompt = template
+      .replace('{contextType}', contextType || '')
+      .replace('{1a}', answers?.['1a'] || '')
+      .replace('{1b}', answers?.['1b'] || '')
+      .replace('{2a}', answers?.['2a'] || '')
+      .replace('{2b}', answers?.['2b'] || '')
+      .replace('{3a}', answers?.['3a'] || '')
+      .replace('{3b}', answers?.['3b'] || '')
+      .replace('{4a}', answers?.['4a'] || '')
+      .replace('{4b}', answers?.['4b'] || '');
+    messages = [{ role: 'user', content: verdictPrompt }];
+  } else {
+    const instruction = (process.env[`COACHING_PHASE_${phase}`] || '').replace(/\\n/g, '\n');
+    messages = [
+      ...(history || []),
+      { role: 'user', content: `${instruction}\n\nUser's answers: ${userContent}` }
+    ];
+  }
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 30000);
   const t0 = Date.now();
 
   try {
-    console.log(`[coaching] sending ${messages.length} messages to xAI...`);
+    console.log(`[coaching] phase=${phase} messages=${messages.length} sending to xAI...`);
     const response = await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
       signal: controller.signal,
@@ -37,7 +45,7 @@ YOUR TONE AND STYLE:
         model: 'grok-4-fast-non-reasoning',
         max_tokens: 1000,
         messages: [
-          { role: 'system', content: systemPrompt || DEFAULT_SYSTEM },
+          { role: 'system', content: systemPrompt },
           ...messages
         ]
       })

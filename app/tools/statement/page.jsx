@@ -72,30 +72,20 @@ export default function StatementTool() {
     setResult(null);
 
     const feelings = allEmotions();
-    const prompt = `You are a compassionate communication coach. Help craft a ${fmt.title} to resolve a conflict.
-
-Format: ${fmt.title}
-Formula: ${fmt.formula}
-
-User's input:
-- Situation: ${situation}
-- Specific behavior: ${behavior}
-- Feelings: ${feelings}
-- Impact/need: ${impact}
-${request ? `- Request: ${request}` : ''}
-
-Respond ONLY with a valid JSON object, no markdown:
-{
-  "primary": "Main statement — warm, clear, non-blaming, natural to say aloud",
-  "alternatives": ["Alternative phrasing 1", "Alternative phrasing 2"],
-  "tip": "One practical delivery tip about timing, tone, or emotional preparation (2 sentences)"
-}`;
 
     try {
       const res = await fetch('/api/statement', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
+        body: JSON.stringify({
+          formatTitle: fmt.title,
+          formula: fmt.formula,
+          situation,
+          behavior,
+          feelings,
+          impact,
+          request
+        })
       });
       const data = await res.json();
       setResult(data);
