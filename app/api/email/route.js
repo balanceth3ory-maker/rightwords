@@ -72,6 +72,64 @@ function statementHtml(result) {
   `;
 }
 
+function mapHtml(map) {
+  const partiesHtml = map.parties?.map(p => `
+    <div style="background: #f0f4f9; border-radius: 8px; padding: 14px; margin-bottom: 8px;">
+      <div style="font-size: 14px; font-weight: 600; color: #2d4060; margin-bottom: 6px;">${p.name}</div>
+      <div style="font-size: 13px; color: #3d3a34; margin-bottom: 3px;"><strong>Says:</strong> ${p.position}</div>
+      <div style="font-size: 13px; color: #3d3a34;"><strong>Needs:</strong> ${p.interest}</div>
+    </div>
+  `).join('') || '';
+
+  const relationsHtml = map.relationships?.map(r => `
+    <div style="padding: 10px 14px; border-left: 3px solid ${r.type === 'tension' ? '#bf6a6a' : r.type === 'alliance' ? '#6abf8a' : '#7a9cbf'}; margin-bottom: 8px; background: #f8f8f8; border-radius: 0 6px 6px 0;">
+      <div style="font-size: 13px; font-weight: 600; color: #2d2926; margin-bottom: 3px;">${r.between?.join(' ↔ ')}</div>
+      <div style="font-size: 13px; color: #7a6f68;">${r.description}</div>
+    </div>
+  `).join('') || '';
+
+  return `
+    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 24px; color: #2d2926; background: #faf6f0;">
+      <div style="font-size: 13px; color: #4a6a9c; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">✦ RightWords — Right Idea</div>
+      <h1 style="font-size: 20px; font-weight: 600; margin: 0 0 6px; line-height: 1.3;">Your conflict map</h1>
+      <p style="font-size: 14px; color: #7a6f68; margin: 0 0 24px; font-style: italic;">${map.coreIssue}</p>
+
+      <div style="margin-bottom: 20px;">
+        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-family: system-ui;">The people</div>
+        ${partiesHtml}
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-family: system-ui;">How they relate</div>
+        ${relationsHtml}
+      </div>
+
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 14px; border-top: 1px solid #e0d8cf; vertical-align: top; width: 50%;">
+            <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-family: system-ui;">What stands out</div>
+            <div style="font-size: 13px; color: #2d2926; line-height: 1.5;">${map.insight}</div>
+          </td>
+          <td style="padding: 14px; border-top: 1px solid #e0d8cf; vertical-align: top; width: 50%;">
+            <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-family: system-ui;">Where to focus</div>
+            <div style="font-size: 13px; color: #2d2926; line-height: 1.5;">${map.leverage}</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding: 14px; border-top: 1px solid #e0d8cf;">
+            <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-family: system-ui;">First step</div>
+            <div style="font-size: 13px; color: #2d2926; line-height: 1.5;">${map.recommendation}</div>
+          </td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #e0d8cf; font-size: 12px; color: #7a6f68; font-family: system-ui, sans-serif;">
+        Sent from <a href="https://rightwords.app" style="color: #c4714a;">RightWords</a>
+      </div>
+    </div>
+  `;
+}
+
 export async function POST(request) {
   const { to, type, data } = await request.json();
 
@@ -80,14 +138,10 @@ export async function POST(request) {
   }
 
   const emailConfig = type === 'verdict'
-    ? {
-        subject: `Your conflict reframe: "${data.title}"`,
-        html: verdictHtml(data),
-      }
-    : {
-        subject: 'Your Right Statement from RightWords',
-        html: statementHtml(data),
-      };
+    ? { subject: `Your conflict reframe: "${data.title}"`, html: verdictHtml(data) }
+    : type === 'map'
+    ? { subject: 'Your conflict map from RightWords', html: mapHtml(data) }
+    : { subject: 'Your Right Statement from RightWords', html: statementHtml(data) };
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
