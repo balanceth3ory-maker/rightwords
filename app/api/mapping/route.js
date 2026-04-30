@@ -1,30 +1,25 @@
 export async function POST(request) {
-  const { phase, context, role, contextType, parties, connections } = await request.json();
+  const { phase, context, role, contextType, parties, userStatement, selectedReframe, concernsAnalysis } = await request.json();
 
   const systemPrompt = (process.env.MAPPING_SYSTEM || '').replace(/\\n/g, '\n');
 
   let userMessage;
+  let maxTokens = 800;
 
   if (phase === 2) {
     const instruction = (process.env.MAPPING_PHASE_2 || '').replace(/\\n/g, '\n');
-    const partiesList = parties.map((p, i) =>
-      `Party ${i + 1}: ${p.name}\n  Position (what they say they want): ${p.position}\n  Interest (what they actually need): ${p.need}`
-    ).join('\n\n');
-    userMessage = `${instruction}\n\nConflict: ${context}\nYour role: ${role}\nContext: ${contextType}\n\nParties:\n${partiesList}`;
+    const partiesList = parties.map(p => `${p.name}: ${p.description}`).join('\n');
+    userMessage = `${instruction}\n\nConflict: ${context}\nYour role: ${role}\nContext: ${contextType}\n\nPeople involved:\n${partiesList}`;
   } else if (phase === 3) {
     const instruction = (process.env.MAPPING_PHASE_3 || '').replace(/\\n/g, '\n');
-    userMessage = `${instruction}\n\nConflict: ${context}\nYour role: ${role}\nConnections described: ${connections}`;
+    const partiesList = parties.map(p => `${p.name}: ${p.description}`).join('\n');
+    userMessage = `${instruction}\n\nConflict: ${context}\nContext: ${contextType}\n\nPeople:\n${partiesList}\n\nWhat the user wants to say:\n"${userStatement}"`;
+    maxTokens = 600;
   } else if (phase === 'map') {
-    const template = (process.env.MAPPING_VERDICT || '').replace(/\\n/g, '\n');
-    const partiesList = parties.map((p, i) =>
-      `Party ${i + 1}: ${p.name} | Position: ${p.position} | Interest: ${p.need}`
-    ).join('\n');
-    userMessage = template
-      .replace('{context}', context || '')
-      .replace('{role}', role || '')
-      .replace('{contextType}', contextType || '')
-      .replace('{parties}', partiesList || '')
-      .replace('{connections}', connections || '');
+    const instruction = (process.env.MAPPING_VERDICT || '').replace(/\\n/g, '\n');
+    const partiesList = parties.map(p => `${p.name}: ${p.description}`).join('\n');
+    userMessage = `${instruction}\n\nConflict: ${context}\nRole: ${role}\nContext: ${contextType}\n\nPeople:\n${partiesList}\n\nCore concerns analysis:\n${concernsAnalysis || 'Not provided'}\n\nUser's original statement: "${userStatement || ''}"\nUser's chosen reframe: "${selectedReframe || 'None selected'}"`;
+    maxTokens = 1600;
   }
 
   const controller = new AbortController();
@@ -40,7 +35,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: 'grok-4-fast-non-reasoning',
-        max_tokens: 1200,
+        max_tokens: maxTokens,
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userMessage }

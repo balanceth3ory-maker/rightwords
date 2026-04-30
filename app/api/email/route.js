@@ -73,57 +73,72 @@ function statementHtml(result) {
 }
 
 function mapHtml(map) {
-  const partiesHtml = map.parties?.map(p => `
-    <div style="background: #f0f4f9; border-radius: 8px; padding: 14px; margin-bottom: 8px;">
-      <div style="font-size: 14px; font-weight: 600; color: #2d4060; margin-bottom: 6px;">${p.name}</div>
-      <div style="font-size: 13px; color: #3d3a34; margin-bottom: 3px;"><strong>Says:</strong> ${p.position}</div>
-      <div style="font-size: 13px; color: #3d3a34;"><strong>Needs:</strong> ${p.interest}</div>
+  const concernsHtml = map.concerns?.map(c => `
+    <div style="background: #f0f4f9; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;">
+      <div style="margin-bottom: 4px;">
+        <span style="font-size: 14px; font-weight: 600; color: #2d4060;">${c.party}</span>
+        <span style="font-size: 11px; font-family: monospace; text-transform: uppercase; letter-spacing: 1px; color: #4a6a9c; margin-left: 8px;">${c.concern}</span>
+      </div>
+      <div style="font-size: 13px; color: #3d3a34; line-height: 1.5;">${c.explanation}</div>
     </div>
   `).join('') || '';
 
-  const relationsHtml = map.relationships?.map(r => `
-    <div style="padding: 10px 14px; border-left: 3px solid ${r.type === 'tension' ? '#bf6a6a' : r.type === 'alliance' ? '#6abf8a' : '#7a9cbf'}; margin-bottom: 8px; background: #f8f8f8; border-radius: 0 6px 6px 0;">
-      <div style="font-size: 13px; font-weight: 600; color: #2d2926; margin-bottom: 3px;">${r.between?.join(' ↔ ')}</div>
-      <div style="font-size: 13px; color: #7a6f68;">${r.description}</div>
+  const skillsHtml = map.skills?.map(s => `
+    <div style="background: #f8f8f8; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;">
+      <div style="font-size: 13px; font-weight: 600; color: #2d2926; margin-bottom: 3px;">${s.name}</div>
+      <div style="font-size: 13px; color: #7a6f68; line-height: 1.5;">${s.how}</div>
+    </div>
+  `).join('') || '';
+
+  const stepsHtml = map.steps?.map((s, i) => `
+    <div style="display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start;">
+      <span style="font-size: 12px; font-family: monospace; color: #4a6a9c; min-width: 20px; padding-top: 1px;">${i + 1}.</span>
+      <span style="font-size: 13px; color: #2d2926; line-height: 1.5;">${s}</span>
     </div>
   `).join('') || '';
 
   return `
     <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 24px; color: #2d2926; background: #faf6f0;">
-      <div style="font-size: 13px; color: #4a6a9c; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">✦ RightWords — Right Idea</div>
+      <div style="font-size: 13px; color: #4a6a9c; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-family: system-ui;">✦ RightWords — Right Idea</div>
       <h1 style="font-size: 20px; font-weight: 600; margin: 0 0 6px; line-height: 1.3;">Your conflict map</h1>
-      <p style="font-size: 14px; color: #7a6f68; margin: 0 0 24px; font-style: italic;">${map.coreIssue}</p>
+      <p style="font-size: 14px; color: #7a6f68; margin: 0 0 28px; font-style: italic;">${map.coreIssue}</p>
 
-      <div style="margin-bottom: 20px;">
-        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-family: system-ui;">The people</div>
-        ${partiesHtml}
-      </div>
+      ${concernsHtml ? `
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-family: system-ui;">Core concerns at play</div>
+        ${concernsHtml}
+      </div>` : ''}
 
-      <div style="margin-bottom: 20px;">
-        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-family: system-ui;">How they relate</div>
-        ${relationsHtml}
-      </div>
+      ${map.reframe ? `
+      <div style="background: white; border: 1.5px solid #4a6a9c; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px;">
+        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: system-ui;">How to say it</div>
+        <p style="font-size: 15px; color: #2d2926; font-style: italic; line-height: 1.7; margin: 0;">"${map.reframe}"</p>
+      </div>` : ''}
 
-      <table style="width: 100%; border-collapse: collapse;">
-        <tr>
-          <td style="padding: 14px; border-top: 1px solid #e0d8cf; vertical-align: top; width: 50%;">
-            <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-family: system-ui;">What stands out</div>
-            <div style="font-size: 13px; color: #2d2926; line-height: 1.5;">${map.insight}</div>
-          </td>
-          <td style="padding: 14px; border-top: 1px solid #e0d8cf; vertical-align: top; width: 50%;">
-            <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-family: system-ui;">Where to focus</div>
-            <div style="font-size: 13px; color: #2d2926; line-height: 1.5;">${map.leverage}</div>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding: 14px; border-top: 1px solid #e0d8cf;">
-            <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-family: system-ui;">First step</div>
-            <div style="font-size: 13px; color: #2d2926; line-height: 1.5;">${map.recommendation}</div>
-          </td>
-        </tr>
-      </table>
+      ${map.approach ? `
+      <div style="margin-bottom: 24px; padding: 14px; border-top: 1px solid #e0d8cf;">
+        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: system-ui;">How to start the conversation</div>
+        <div style="font-size: 13px; color: #2d2926; line-height: 1.6;">${map.approach}</div>
+      </div>` : ''}
 
-      <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #e0d8cf; font-size: 12px; color: #7a6f68; font-family: system-ui, sans-serif;">
+      ${skillsHtml ? `
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-family: system-ui;">Skills to use</div>
+        ${skillsHtml}
+      </div>` : ''}
+
+      ${stepsHtml ? `
+      <div style="margin-bottom: 24px; padding-top: 16px; border-top: 1px solid #e0d8cf;">
+        <div style="font-size: 11px; color: #7a6f68; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-family: system-ui;">Your action steps</div>
+        ${stepsHtml}
+      </div>` : ''}
+
+      ${map.affirmation ? `
+      <div style="background: #eef2f8; border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; text-align: center;">
+        <p style="font-size: 14px; color: #2d4060; font-style: italic; line-height: 1.6; margin: 0;">${map.affirmation}</p>
+      </div>` : ''}
+
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e0d8cf; font-size: 12px; color: #7a6f68; font-family: system-ui, sans-serif;">
         Sent from <a href="https://rightwords.app" style="color: #c4714a;">RightWords</a>
       </div>
     </div>
