@@ -119,7 +119,7 @@ export default function Dashboard() {
               <span className={styles.toolIcon}>🗺️</span>
               <div>
                 <h3>Right Idea</h3>
-                <p>Map the parties, relationships, and leverage points in a conflict.</p>
+                <p>Work through the emotion, understand everyone involved, and build a plan.</p>
               </div>
               <span className={styles.toolArrow}>→</span>
             </Link>

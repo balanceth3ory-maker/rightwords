@@ -73,15 +73,15 @@ export default function Home() {
               <div className={styles.toolIcon}>🗺️</div>
               <h2>Right Idea</h2>
               <p>
-                A conflict mapping tool built on social network analysis. Map the parties, their
-                interests, and the relationships between them — then let AI reveal the patterns,
-                power dynamics, and leverage points you can't see from inside the conflict.
+                A structured conflict coaching guide — not therapy, not advocacy. Working with
+                just one person at a time, it helps you work through the emotion, understand
+                everyone involved, and build a clear plan for moving forward constructively.
               </p>
               <ul className={styles.toolFeatures}>
-                <li>Map up to five parties and their interests</li>
-                <li>Identifies alliances, tensions, and power dynamics</li>
-                <li>Reveals the most important relationship to shift</li>
-                <li>Ends with a structured conflict map and first step</li>
+                <li>Guided three-step process</li>
+                <li>Surfaces what each person actually needs</li>
+                <li>Neutral — no sides, no judgment</li>
+                <li>Ends with a concrete action plan</li>
               </ul>
               <Link href="/tools/mapping" className="btn btn-blue">Try Right Idea</Link>
             </div>
