@@ -16,8 +16,10 @@ export default function Home() {
               when it matters most.
             </h1>
             <p className={styles.subhead}>
-              Two tools. One purpose — helping you communicate with clarity,
-              even when it's hard.
+              RightWords helps you find the right words to turn conflict into connection.
+              Our tools don't hand you answers — they guide you to think through issues,
+              reframe your perspective, and communicate more clearly with partners,
+              colleagues, family, or friends.
             </p>
             <div className={styles.heroCta}>
               <Link href="/login" className="btn btn-primary">Get started free</Link>
@@ -33,11 +35,12 @@ export default function Home() {
           <div className={styles.toolsGrid}>
             <div className={styles.toolCard}>
               <div className={styles.toolIcon}>🕊️</div>
-              <h2>Statement Builder</h2>
+              <h2>Right Statement</h2>
               <p>
-                Craft a clear, non-blaming I-statement, XYZ statement, or
-                Nonviolent Communication message — guided step by step,
-                refined by AI.
+                Your conflict coaching guide for words. It doesn't give you ready-made answers —
+                it helps you think through your feelings and needs to craft a clear, non-blaming
+                message. Using I-statements, XYZ statements, or Nonviolent Communication, it
+                guides you step-by-step so you can refine your own perspective and say what matters.
               </p>
               <ul className={styles.toolFeatures}>
                 <li>Three proven communication formats</li>
@@ -45,16 +48,17 @@ export default function Home() {
                 <li>AI-crafted statement with alternatives</li>
                 <li>Editable, copyable result</li>
               </ul>
-              <Link href="/tools/statement" className="btn btn-primary">Try Statement Builder</Link>
+              <Link href="/tools/statement" className="btn btn-primary">Try Right Statement</Link>
             </div>
 
             <div className={`${styles.toolCard} ${styles.toolCardSage}`}>
               <div className={styles.toolIcon}>⚖️</div>
-              <h2>Wrong Question</h2>
+              <h2>Right Question</h2>
               <p>
-                A conflict diagnostic built by a PhD organizational behaviorist.
-                Find out what your conflict is really about — and what question
-                you should actually be asking.
+                Your personal conflict coaching guide. Instead of giving you answers, it helps
+                you think through the issue, shift your perspective, and move past surface
+                arguments. Its simple four-phase process reveals the real question underneath
+                so you can approach the conflict with clarity.
               </p>
               <ul className={styles.toolFeatures}>
                 <li>Four-phase structured diagnostic</li>
@@ -62,7 +66,7 @@ export default function Home() {
                 <li>Forces perspective-taking</li>
                 <li>Ends with a sharp, plain-language reframe</li>
               </ul>
-              <Link href="/tools/coaching" className="btn btn-sage">Try Wrong Question</Link>
+              <Link href="/tools/coaching" className="btn btn-sage">Try Right Question</Link>
             </div>
           </div>
         </section>

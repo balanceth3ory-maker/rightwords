@@ -167,11 +167,11 @@ Respond ONLY with a valid JSON object, no markdown:
   return (
     <>
       <Nav />
-      <UsageGate toolName="Statement Builder">
+      <UsageGate toolName="Right Statement">
         <main className={styles.main}>
           <div className={styles.container}>
             <div className={styles.header}>
-              <h1>🕊️ Statement Builder</h1>
+              <h1>🕊️ Right Statement</h1>
               <p>Turn a difficult moment into a clear, caring message.</p>
             </div>
 

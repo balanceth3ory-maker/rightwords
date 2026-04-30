@@ -102,7 +102,7 @@ export default function Dashboard() {
             <Link href="/tools/statement" className={styles.toolCard}>
               <span className={styles.toolIcon}>🕊️</span>
               <div>
-                <h3>Statement Builder</h3>
+                <h3>Right Statement</h3>
                 <p>Craft an I-statement, XYZ statement, or NVC message with AI guidance.</p>
               </div>
               <span className={styles.toolArrow}>→</span>
@@ -110,7 +110,7 @@ export default function Dashboard() {
             <Link href="/tools/coaching" className={`${styles.toolCard} ${styles.toolCardSage}`}>
               <span className={styles.toolIcon}>⚖️</span>
               <div>
-                <h3>Wrong Question</h3>
+                <h3>Right Question</h3>
                 <p>A conflict diagnostic that finds what your conflict is really about.</p>
               </div>
               <span className={styles.toolArrow}>→</span>
@@ -129,7 +129,7 @@ export default function Dashboard() {
                 {sessions.map(s => (
                   <div key={s.id} className={styles.sessionItem}>
                     <span className={styles.sessionTool}>
-                      {s.tool === 'statement' ? '🕊️ Statement Builder' : '⚖️ Wrong Question'}
+                      {s.tool === 'statement' ? '🕊️ Right Statement' : '⚖️ Right Question'}
                     </span>
                     <p className={styles.sessionSnippet}>{s.summary || 'Session completed'}</p>
                     <span className={styles.sessionDate}>

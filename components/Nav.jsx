@@ -54,10 +54,10 @@ export default function Nav() {
               Dashboard
             </Link>
             <Link href="/tools/statement" className={`${styles.link} ${pathname.includes('statement') ? styles.active : ''}`}>
-              Statement Builder
+              Right Statement
             </Link>
             <Link href="/tools/coaching" className={`${styles.link} ${pathname.includes('coaching') ? styles.active : ''}`}>
-              Wrong Question
+              Right Question
             </Link>
             {!isPro && (
               <Link href="/upgrade" className={styles.upgradeBadge}>

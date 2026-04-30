@@ -46,7 +46,7 @@ Keep it to 5-7 sentences total.`
 };
 
 function getSystemPrompt(contextType) {
-  return `You are the analytical engine behind "Wrong Question," a conflict diagnostic tool built by a PhD organizational behaviorist and trained mediator. Your job is to help people see what's actually driving their conflict — and what question they should really be asking.
+  return `You are the analytical engine behind "Right Question," a conflict coaching guide built by a PhD organizational behaviorist and trained mediator. Your job is to help people think through the issue, shift their perspective, and move past surface arguments to find the real question underneath.
 
 CONTEXT: ${contextType}
 
@@ -267,7 +267,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
               {phase === 0 && (
                 <div className={styles.phase}>
                   <div className={styles.eyebrow}>Conflict diagnostic</div>
-                  <h1 className={styles.title}>You might be asking the <em>wrong question.</em></h1>
+                  <h1 className={styles.title}>Are you asking the <em>right question?</em></h1>
                   <p className={styles.contextText}>Most conflicts aren't about what they appear to be about. This tool helps you find what's actually driving yours — and what question you should really be asking.</p>
 
                   <div className={styles.rulesGrid}>

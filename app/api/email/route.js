@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 function verdictHtml(verdict) {
   return `
     <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 24px; color: #2d2926; background: #faf6f0;">
-      <div style="font-size: 13px; color: #c4714a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">✦ RightWords — Wrong Question</div>
+      <div style="font-size: 13px; color: #c4714a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">✦ RightWords — Right Question</div>
       <h1 style="font-size: 22px; font-weight: 600; line-height: 1.4; margin: 0 0 24px;">${verdict.title}</h1>
 
       <div style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e0d8cf;">
@@ -45,7 +45,7 @@ function verdictHtml(verdict) {
 function statementHtml(result) {
   return `
     <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 24px; color: #2d2926; background: #faf6f0;">
-      <div style="font-size: 13px; color: #c4714a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">✦ RightWords — Statement Builder</div>
+      <div style="font-size: 13px; color: #c4714a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">✦ RightWords — Right Statement</div>
       <h1 style="font-size: 20px; font-weight: 600; margin: 0 0 24px;">Your statement</h1>
 
       <div style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 2px solid #c4714a;">
@@ -87,7 +87,7 @@ export async function POST(request) {
         html: verdictHtml(data),
       }
     : {
-        subject: 'Your statement from RightWords',
+        subject: 'Your Right Statement from RightWords',
         html: statementHtml(data),
       };
 
