@@ -62,6 +62,9 @@ export default function Nav() {
             <Link href="/tools/mapping" className={`${styles.link} ${pathname.includes('mapping') ? styles.active : ''}`}>
               Right Idea
             </Link>
+            <Link href="/tools/apology" className={`${styles.link} ${pathname.includes('apology') ? styles.active : ''}`}>
+              Right Apology
+            </Link>
             {!isPro && (
               <Link href="/upgrade" className={styles.upgradeBadge}>
                 Go Pro

@@ -1,0 +1,232 @@
+.main {
+  padding: 48px 24px 80px;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  text-align: center;
+  padding-bottom: 8px;
+}
+
+.header h1 {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.header p {
+  font-size: 15px;
+  color: var(--warm-gray);
+}
+
+.card {
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: 22px;
+  padding: 32px;
+  box-shadow: 0 4px 24px var(--shadow);
+}
+
+.progressBar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sage), var(--sage-light));
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.step {
+  animation: fadeSlide 0.3s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stepBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--warm-gray);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.num {
+  width: 20px;
+  height: 20px;
+  background: var(--sage);
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.optionalTag {
+  font-size: 11px;
+  color: var(--sage-light);
+  text-transform: lowercase;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.step h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 14px;
+  color: var(--warm-gray);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.step textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  color: var(--charcoal);
+  background: var(--cream);
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: var(--font-sans);
+}
+
+.step textarea:focus { border-color: var(--sage-light); }
+.step textarea::placeholder { color: #b8ada6; }
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Result */
+.resultCard {
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: 22px;
+  padding: 32px;
+  box-shadow: 0 4px 24px var(--shadow);
+  animation: fadeSlide 0.4s ease;
+}
+
+.loadingWrap {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--warm-gray);
+  font-size: 15px;
+}
+
+.dots {
+  display: inline-flex;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--sage-light);
+  border-radius: 50%;
+  animation: bounce 1.2s infinite;
+}
+
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+}
+
+.resultLabel {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sage);
+  margin-bottom: 14px;
+}
+
+.apologyText {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  padding: 22px;
+  background: var(--cream);
+  border-radius: 14px;
+  border-left: 3px solid var(--sage);
+  margin-bottom: 10px;
+}
+
+.highlight {
+  background: rgba(107,140,114,0.18);
+  color: var(--charcoal);
+  border-radius: 3px;
+  padding: 1px 2px;
+  font-style: normal;
+}
+
+.highlightNote {
+  font-size: 13px;
+  color: var(--warm-gray);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.resultActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: white;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  color: var(--charcoal);
+  transition: all 0.2s;
+}
+
+.copyBtn:hover { border-color: var(--sage-light); }
+.copied { border-color: var(--sage) !important; color: var(--sage); }

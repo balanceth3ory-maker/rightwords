@@ -97,6 +97,19 @@ export default function Home() {
               </ul>
               <Link href="/tools/mapping" className="btn btn-blue">Try Right Idea</Link>
             </div>
+
+            <div className={styles.toolCard}>
+              <div className={styles.toolIcon}>🤝</div>
+              <h2>Right Apology</h2>
+              <p>Six honest answers. One apology worth giving — and worth receiving.</p>
+              <ul className={styles.toolFeatures}>
+                <li>Guided by the six elements of a complete apology</li>
+                <li>Concise, human result — not a script</li>
+                <li>Key phrases highlighted for the recipient</li>
+                <li>Copy and send when you're ready</li>
+              </ul>
+              <Link href="/tools/apology" className="btn btn-primary">Try Right Apology</Link>
+            </div>
           </div>
         </section>
 
