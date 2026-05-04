@@ -33,24 +33,37 @@ export default function Home() {
         {/* Recommended Flow */}
         <section className={styles.flow}>
           <div className={styles.flowInner}>
-            <div className={styles.flowLabel}>Recommended path</div>
-            <div className={styles.flowPath}>
+            <div className={styles.flowHeading}>
+              <div className={styles.flowLabel}>Recommended path</div>
+              <p className={styles.flowSub}>Use these tools in order to work through any difficult conversation.</p>
+            </div>
+            <div className={styles.flowSteps}>
               <Link href="/tools/coaching" className={styles.flowStep}>
+                <div className={styles.flowNum}>1</div>
                 <span className={styles.flowStepIcon}>⚖️</span>
                 <div className={styles.flowStepName}>Right Question</div>
                 <div className={styles.flowStepDesc}>Find the real problem</div>
               </Link>
               <span className={styles.flowArrow}>→</span>
               <Link href="/tools/mapping" className={styles.flowStep}>
+                <div className={styles.flowNum}>2</div>
                 <span className={styles.flowStepIcon}>🗺️</span>
                 <div className={styles.flowStepName}>Right Idea</div>
                 <div className={styles.flowStepDesc}>Map everyone involved</div>
               </Link>
               <span className={styles.flowArrow}>→</span>
               <Link href="/tools/statement" className={styles.flowStep}>
+                <div className={styles.flowNum}>3</div>
                 <span className={styles.flowStepIcon}>🕊️</span>
                 <div className={styles.flowStepName}>Right Statement</div>
                 <div className={styles.flowStepDesc}>Say what needs to be said</div>
+              </Link>
+              <span className={styles.flowArrow}>→</span>
+              <Link href="/tools/apology" className={styles.flowStep}>
+                <div className={styles.flowNum}>4</div>
+                <span className={styles.flowStepIcon}>🤝</span>
+                <div className={styles.flowStepName}>Right Apology</div>
+                <div className={styles.flowStepDesc}>Close the loop with honesty</div>
               </Link>
             </div>
           </div>
@@ -130,7 +143,7 @@ export default function Home() {
             <div className={`${styles.pricingCard} ${styles.pricingCardPro}`}>
               <div className={styles.planBadge}>Most popular</div>
               <div className={styles.planName}>Pro</div>
-              <div className={styles.planPrice}>$7.99<span>/mo</span></div>
+              <div className={styles.planPrice}>$2.99<span>/mo</span></div>
               <ul className={styles.planFeatures}>
                 <li>Unlimited sessions</li>
                 <li>Full session history</li>

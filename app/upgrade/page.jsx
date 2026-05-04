@@ -43,10 +43,12 @@ export default function Upgrade() {
           <p className={styles.sub}>Unlimited access to both tools, your full session history, and everything we build next.</p>
 
           <div className={styles.pricingCard}>
-            <div className={styles.price}>$7.99<span>/month</span></div>
+            <div className={styles.price}>$2.99<span>/month</span></div>
             <ul className={styles.features}>
-              <li>✓ Unlimited Right Statement sessions</li>
               <li>✓ Unlimited Right Question sessions</li>
+              <li>✓ Unlimited Right Idea sessions</li>
+              <li>✓ Unlimited Right Statement sessions</li>
+              <li>✓ Unlimited Right Apology sessions</li>
               <li>✓ Full session history saved</li>
               <li>✓ Cancel anytime</li>
             </ul>
@@ -56,7 +58,7 @@ export default function Upgrade() {
               className="btn btn-primary"
               style={{ width: '100%', padding: '14px', fontSize: '16px' }}
             >
-              {loading ? 'Redirecting to checkout…' : 'Upgrade now — $7.99/mo'}
+              {loading ? 'Redirecting to checkout…' : 'Upgrade now — $2.99/mo'}
             </button>
             <p className={styles.note}>Secure payment via Stripe. Cancel anytime from your account settings.</p>
           </div>
